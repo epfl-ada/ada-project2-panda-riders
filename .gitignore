@@ -4,6 +4,7 @@
 *.ipynb_checkpoints
 *.csv
 *.pyc
+__pycache__
 
 # Ada Library Information
 *.ali
