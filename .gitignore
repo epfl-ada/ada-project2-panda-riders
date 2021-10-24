@@ -3,6 +3,7 @@
 *.bz2
 *.ipynb_checkpoints
 *.csv
+*.pyc
 
 # Ada Library Information
 *.ali
