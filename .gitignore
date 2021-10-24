@@ -1,5 +1,8 @@
 # Object file
 *.o
+*.bz2
+*.ipynb_checkpoints
+*.csv
 
 # Ada Library Information
 *.ali
