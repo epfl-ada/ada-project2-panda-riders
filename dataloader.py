@@ -1,6 +1,7 @@
 import json
 import bz2
 import pandas as pd
+import os
 
 def load_quotes(path, limit = None, columns = None):
     """Function to load the quotes of a compressed json file into a pd.DataFrame
@@ -17,7 +18,7 @@ def load_quotes(path, limit = None, columns = None):
         Originally all the columns are
             ['quoteID', 'quotation', 'speaker', 'qids', 'date', 'numOccurences', 'probas', 'urls', 'phase']
     """
-    with bz2.open("data/quotes-2020.json.bz2", "rt", encoding = "utf8") as bzinput:
+    with bz2.open(os.path.join(path), "rt", encoding = "utf8") as bzinput:
         quotes = []
         for i, line in enumerate(bzinput):
             if limit != None and i == limit: break
