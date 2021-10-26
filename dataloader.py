@@ -2,6 +2,8 @@ import json
 import bz2
 import pandas as pd
 import os
+import gdown
+
 
 def load_quotes(path, limit = None, columns = None):
     """Function to load the quotes of a compressed json file into a pd.DataFrame
@@ -18,7 +20,22 @@ def load_quotes(path, limit = None, columns = None):
         Originally all the columns are
             ['quoteID', 'quotation', 'speaker', 'qids', 'date', 'numOccurences', 'probas', 'urls', 'phase']
     """
-    with bz2.open(os.path.join(path), "rt", encoding = "utf8") as bzinput:
+
+    path = os.path.join(path)
+    if not os.path.isfile(path):
+        filename = os.path.split(path)[-1]
+        files = { \
+            'quotes-2015.json.bz2': '1ujF5vgppXUu5Ph81wqrwY12DrszVmCGe', \
+            'quotes-2016.json.bz2': '1iyYhemohtPBwFyWck8SMHdaHoJMZShsI', \
+            'quotes-2017.json.bz2': '1823mXyPsLDK7i1CQ7CtjzJaJ8rxeEulp', \
+            'quotes-2018.json.bz2': '1X609SehGUxgoB0LfwazAeySjWDc-VhcZ', \
+            'quotes-2019.json.bz2': '1KUXgpssbM7mXGx5RqturDKdtdS_KxIB8', \
+            'quotes-2020.json.bz2': '1kBPm86V1_9z-9rTi3F-ENgxGvUod0olI'}
+        url = f'https://drive.google.com/uc?id={files[filename]}'
+        gdown.download(url, path, quiet=False)
+
+
+    with bz2.open(path, "rt", encoding = "utf8") as bzinput:
         quotes = []
         for i, line in enumerate(bzinput):
             if limit != None and i == limit: break
