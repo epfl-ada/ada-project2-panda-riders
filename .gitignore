@@ -4,6 +4,7 @@
 *.ipynb_checkpoints
 *.csv
 *.pyc
+*.vscode
 __pycache__
 
 # Ada Library Information
