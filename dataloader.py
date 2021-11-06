@@ -82,14 +82,12 @@ def filter_quotes(path, keywords = [""], speakers = [""], chunksize = 1000, save
             break
 
         df_temp = pd.DataFrame(chunk, columns=chunk.keys())
-
+        df_temp = df_temp[df_temp['speaker'].str.contains('|'.join(speakers)) \
+                | df_temp["quotation"].str.split(" ").apply(lambda x : bool(set(x) & set(keywords)))]
         if num == 0:
-            df = df_temp[df_temp['speaker'].str.contains('|'.join(speakers)) \
-                & df_temp["quotation"].str.contains('|'.join(keywords))]
+            df = df_temp
         else:
-            df = df.append(df_temp[df_temp['speaker'].str.contains('|'.join(speakers)) \
-                & df_temp["quotation"].str.contains('|'.join(keywords))], \
-                    ignore_index= True)
+            df = df.append(df_temp, ignore_index= True)
 
     if save != None:
         df.to_pickle(save_path)
