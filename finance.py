@@ -2,10 +2,12 @@ import yfinance as yf
 import matplotlib.pyplot as plt
 import seaborn as sns
 import matplotlib
+import warnings
+warnings.simplefilter(action='ignore')
 
 def applestock():
   print("We first load the dataset")
-  apple = yf.Ticker("AAPL").history(start='2019-01-01', end='2019-12-31')
+  apple = yf.Ticker("AAPL").history(start='2018-01-01', end='2018-12-31')
   apple.reset_index(inplace=True)
 
   print(apple)
@@ -23,6 +25,7 @@ def applestock():
   ax1.xaxis.set_major_locator(matplotlib.dates.AutoDateLocator())
   ax1.set_xticklabels(labels = x_dates, rotation=45, ha='right')
 
+  plt.show()
   print("We can also observe the distribution of the volume and daily price difference between \
     Open and Closing of the market.")
 
@@ -31,11 +34,13 @@ def applestock():
   apple['Daily Diff'].plot.hist(bins=25, ax=ax3)
   plt.title("Histogram of the daily difference between opening and closing price for the $AAPL stock.")
   plt.xlabel("Percentage difference between the closing and opening price")
+  plt.show()
 
   fig, ax4 = plt.subplots(figsize=(12,6))
   apple['Volume'].plot.hist(bins=25, ax=ax4)
   plt.title("Histogram of the daily volume for the $AAPL stock.")
   plt.xlabel("Daily volume of exchange")
+  plt.show()
 
 if __name__ == "__main__":
   applestock()
